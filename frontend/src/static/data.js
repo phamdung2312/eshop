@@ -574,7 +574,7 @@ export const productData = [
 
 export const footerProductLinks = [
   {
-    name: "Giới Thiệu Về FourD ",
+    name: "Giới Thiệu Về 2D ",
     link: "/about",
   },
   {
