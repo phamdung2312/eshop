@@ -22,12 +22,11 @@ const UserInbox = () => {
   const [newMessage, setNewMessage] = useState("");
   const [userData, setUserData] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
+
   const [images, setImages] = useState();
   const [activeStatus, setActiveStatus] = useState(false);
   const [open, setOpen] = useState(false);
-  const scrollRef = useRef(null);
-
-  useEffect(() => {
+  const scrollRef = useRef(null)
     socketId.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -36,6 +35,8 @@ const UserInbox = () => {
       });
     });
   }, []);
+  console.log("user?._id", user?._id);
+  console.log("user", user);
 
   useEffect(() => {
     arrivalMessage &&
@@ -62,6 +63,7 @@ const UserInbox = () => {
   }, [user, messages]);
 
   useEffect(() => {
+    console.log("user join...");
     if (user) {
       const sellerId = user?._id;
       socketId.emit("addUser", sellerId);
@@ -71,10 +73,12 @@ const UserInbox = () => {
     }
   }, [user]);
 
+  console.log("onlineUsers", onlineUsers);
+
   const onlineCheck = (chat) => {
     const chatMembers = chat.members.find((member) => member !== user?._id);
     const online = onlineUsers.find((user) => user.userId === chatMembers);
-
+    console.log("chatMembers", chatMembers);
     return online ? true : false;
   };
 

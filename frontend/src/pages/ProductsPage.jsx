@@ -27,12 +27,12 @@ const ProductsPage = () => {
   const [category, setCategory] = useState("");
   const searchDataFilter = useSelector((state) => state?.search.searchData);
   const searchValue = useSelector((state) => state?.search.searchValue);
-  // const searchDataFilter = searchData?.search?.searchData;
+
   console.log("searchValue", searchValue);
   console.log("data", data);
   console.log("datatemp", datatemp);
   console.log("searchDataFilter", searchDataFilter);
-  console.log("category", category);
+  console.log("filteredCount", category);
   console.log("categoryDataTest", categoryData);
 
   const handleMinPriceChange = (value) => {
@@ -54,12 +54,14 @@ const ProductsPage = () => {
   const filterProducts = () => {
     let filteredData;
     if (searchDataFilter.length > 0) {
+      // có data search
       filteredData = [...searchDataFilter];
       console.log("searchDataFilter");
     } else if (categoryData && datatemp.length < 0) {
       filteredData = [...data];
       console.log("categoryData");
     } else if (datatemp.length > 0 && categoryData) {
+      // có chọn category và lọc
       filteredData = [...datatemp];
       console.log("datatemp");
     } else {
@@ -102,7 +104,10 @@ const ProductsPage = () => {
       sortOption === "default"
     ) {
       let d;
-      if (searchDataFilter.length > 0) {
+      if (
+        searchDataFilter.length > 0 ||
+        (searchValue.length > 0 && searchDataFilter.length === 0)
+      ) {
         d = searchDataFilter;
       } else {
         d = allProducts;
@@ -126,7 +131,7 @@ const ProductsPage = () => {
             allProducts.filter((i) => i.category === categoryData);
           setData(d);
           setFilteredCount(d?.length); // Số sản phẩm sau khi lọc theo danh mục
-          setDatatemp(d);
+          setDatatemp(d); // lưu vào state để xủ lý lọc
           setCategory(categoryData);
           console.log("filterProducts2");
         }
@@ -219,12 +224,11 @@ const ProductsPage = () => {
           <div
             style={searchValue ? { display: "flex" } : {}}
             className={`${styles.section} text-base font-normal pt-2 searchValue`}>
-            <span>Kết quả tìm kiếm cho từ khóa "</span>
-            {" "}
-              <span style={{ color: "blue", fontWeight: "bold" }}>
+            <span>Kết quả tìm kiếm cho từ khóa "</span>{" "}
+            <span style={{ color: "blue", fontWeight: "bold" }}>
               {searchValue}
-              </span>
-              <span>"</span>
+            </span>
+            <span>"</span>
           </div>
           <div className="text-center">
             <p>

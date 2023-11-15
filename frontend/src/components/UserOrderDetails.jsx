@@ -100,7 +100,7 @@ const UserOrderDetails = () => {
           <h1 className="pl-2 text-[25px]">Chi tiết đơn hàng</h1>
         </div>
         <button
-          className={`text-right text-bold bg-[#f6f6f5] ${styles.button} bg-[#f2f2f2] border-none w-auto`}
+          className={`text-right text-bold ${styles.buttonDetail} border-none w-auto`}
           onClick={() => navigate(`/user/track/order/${id}`)}>
           <span style={{ color: "black", fontWeight: "bold" }}>
             {status && `${status}`}

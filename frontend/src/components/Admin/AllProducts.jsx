@@ -8,10 +8,14 @@ import { backend_url, server } from "../../server";
 import axios from "axios";
 import { AiFillFileExcel } from "react-icons/ai";
 import * as XLSX from "xlsx";
+import ChartComponentAdmin from "./ChartComponentAdmin";
 
 import { useState } from "react";
 
 const AllProducts = () => {
+  const [valStartDay, setValStartDay] = useState("");
+  const [valEndDay, setValEndDay] = useState("");
+  const [statistic, setStatistic] = useState(false);
   const [data, setData] = useState([]);
   const { products, isLoading } = useSelector((state) => state.products);
   const dispatch = useDispatch();
@@ -49,6 +53,23 @@ const AllProducts = () => {
     };
   });
 
+  // handle thống kê
+  const handleStartDayChange = (e) => {
+    setValStartDay(e.target.value);
+  };
+  const handleEndDayChange = (e) => {
+    setValEndDay(e.target.value);
+  };
+  const handleStartDayClick = () => {
+    setValEndDay("");
+    setValStartDay("");
+    setStatistic(false);
+  };
+
+  const handleStatistic = () => {
+    setStatistic(true);
+  };
+
   const handleExport = () => {
     const currentDate = new Date();
     const formattedDate = currentDate
@@ -62,6 +83,23 @@ const AllProducts = () => {
     const fileName = `all-product-${formattedDate}.xlsx`;
     XLSX.writeFile(wb, fileName);
   };
+
+  // handle choose day
+  const getAllProducts = data?.filter((item) => {
+    const orderDate = new Date(item.createdAt.slice(0, 10));
+    return (
+      orderDate >= new Date(valStartDay) && orderDate <= new Date(valEndDay)
+    );
+  });
+
+  const totalAllProduct = getAllProducts?.length;
+  //chart;
+  const allProduct = getAllProducts?.map((product) => {
+    return {
+      day: product.createdAt.slice(0, 10),
+      total: 1,
+    };
+  });
 
   const columns = [
     {
@@ -138,10 +176,26 @@ const AllProducts = () => {
   ];
 
   const row = [];
+  const row1 = [];
 
   data &&
     data.forEach((item) => {
       row.push({
+        id: item._id,
+        name: item.name,
+        price:
+          item.discountPrice.toLocaleString("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          }) + "",
+        Stock: item.stock,
+        sold: item?.sold_out,
+        shopName: item?.shop?.name,
+      });
+    });
+  data &&
+    data.forEach((item) => {
+      row1.push({
         id: item._id,
         name: item.name,
         price:
@@ -171,6 +225,94 @@ const AllProducts = () => {
           <AiFillFileExcel className="mr-2" /> {/* Thêm biểu tượng Excel */}
           Export Excel
         </button>
+        <div
+          style={{
+            padding: "20px",
+            background: "#ccc",
+          }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}>
+            <h1 style={{ fontSize: "20px", fontWeight: "700" }}>
+              Thống kê sản phẩm ----
+            </h1>
+            <div>
+              <label>Ngày bắt đầu: </label>
+              <input
+                style={{ border: "1px solid black" }}
+                value={valStartDay}
+                type="date"
+                onChange={handleStartDayChange}></input>
+              <label style={{ marginLeft: "50px" }}>Ngày kết thúc: </label>
+              <input
+                style={{ border: "1px solid black" }}
+                className="border border-solid border-red-500"
+                type="date"
+                value={valEndDay}
+                onChange={handleEndDayChange}></input>
+              {/* <button onClick={handleSubmit}>Thống kê</button> */}
+            </div>
+          </div>
+          {statistic ? (
+            <button
+              onClick={handleStartDayClick}
+              style={{
+                color: "#294fff",
+                fontSize: "20px",
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+              }}>
+              Tiếp tục thống kê
+            </button>
+          ) : (
+            <></>
+          )}
+          {valEndDay ? (
+            <button
+              onClick={handleStatistic}
+              style={{
+                color: "#294fff",
+                fontSize: "20px",
+                display: statistic ? "none" : "flex",
+                justifyContent: "center",
+                width: "100%",
+              }}>
+              Thống kê
+            </button>
+          ) : (
+            <></>
+          )}
+        </div>
+
+        {row1 && statistic && (
+          <>
+            <DataGrid
+              rows={row1}
+              columns={columns}
+              pageSize={4}
+              disableSelectionOnClick
+              autoHeight
+            />
+            <div
+              style={{
+                fontSize: "20px",
+                fontWeight: "700",
+                padding: "50px",
+                float: "right",
+              }}>
+              <span>Tổng sản phẩm: </span>
+              <span style={{ color: "#294fff" }}>{totalAllProduct}</span>
+            </div>
+          </>
+        )}
+        {statistic && (
+          <ChartComponentAdmin
+            arrData={allProduct && allProduct}
+            name="sản phẩm"></ChartComponentAdmin>
+        )}
       </div>
     </>
   );

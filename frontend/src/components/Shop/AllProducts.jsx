@@ -30,7 +30,7 @@ const AllProducts = () => {
     dispatch(deleteProduct(id));
     window.location.reload();
   };
-  //
+  //Chọn ngày thống kê
   const handleStartDayChange = (e) => {
     setValStartDay(e.target.value);
   };
@@ -48,7 +48,6 @@ const AllProducts = () => {
   };
 
   //export excel
-
   // Tạo dữ liệu cho danh sách đơn hàng với các cột sản phẩm động
   const allProducts = products?.map((allProduct) => {
     return {
@@ -92,15 +91,15 @@ const AllProducts = () => {
     );
   });
 
-  const totalOrders = getAllProducts?.length;
+  const totalAllProduct = getAllProducts?.length;
   //chart;
-  const deliveredOrdersInfo = getAllProducts?.map((product) => {
+  const allProduct = getAllProducts?.map((product) => {
     return {
       day: product.createdAt.slice(0, 10),
       total: 1,
     };
   });
-  console.log("deliveredOrdersInfo", deliveredOrdersInfo);
+  console.log("allProduct", allProduct);
   console.log("getAllOrders", getAllProducts);
 
   const columns = [
@@ -254,6 +253,7 @@ const AllProducts = () => {
             <AiFillFileExcel className="mr-2" /> {/* Thêm biểu tượng Excel */}
             Export Excel
           </button>
+          {/* Thống kê */}
           <div
             style={{
               padding: "20px",
@@ -333,13 +333,13 @@ const AllProducts = () => {
                   float: "right",
                 }}>
                 <span>Tổng sản phẩm: </span>
-                <span style={{ color: "#294fff" }}>{totalOrders}</span>
+                <span style={{ color: "#294fff" }}>{totalAllProduct}</span>
               </div>
             </>
           )}
           {statistic && (
             <ChartComponentShop
-              arrData={deliveredOrdersInfo && deliveredOrdersInfo}
+              arrData={allProduct && allProduct}
               name="sản phẩm"></ChartComponentShop>
           )}
         </div>

@@ -14,7 +14,7 @@ const WithdrawMoney = () => {
   const dispatch = useDispatch();
   const { seller } = useSelector((state) => state.seller);
   const [paymentMethod, setPaymentMethod] = useState(false);
-  const [withdrawAmount, setWithdrawAmount] = useState(50);
+  const [withdrawAmount, setWithdrawAmount] = useState(100000);
   const [bankInfo, setBankInfo] = useState({
     bankName: "",
     bankCountry: "",
@@ -51,7 +51,7 @@ const WithdrawMoney = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        toast.success("Withdraw method added successfully!");
+        toast.success("Thêm phương thức rút tiền thành công!");
         dispatch(loadSeller());
         setBankInfo({
           bankName: "",
@@ -83,7 +83,7 @@ const WithdrawMoney = () => {
   };
 
   const withdrawHandler = async () => {
-    if (withdrawAmount < 50 || withdrawAmount > availableBalance) {
+    if (withdrawAmount < 100000 || withdrawAmount > availableBalance) {
       toast.error("Bạn không thể rút số tiền này!");
     } else {
       const amount = withdrawAmount;
@@ -111,7 +111,9 @@ const WithdrawMoney = () => {
         <h5 className="text-[20px] pb-4">Số dư khả dụng: {availableBalance}</h5>
         <div
           className={`${styles.button} text-white !h-[42px] !rounded`}
-          onClick={() => (availableBalance < 50 ? error() : setOpen(true))}>
+          onClick={() =>
+            seller?.availableBalance < 100000 ? error() : setOpen(true)
+          }>
           Rút tiền
         </div>
       </div>
@@ -298,7 +300,6 @@ const WithdrawMoney = () => {
                       <input
                         type="number"
                         placeholder="Số tiền..."
-                        value={withdrawAmount}
                         onChange={(e) => setWithdrawAmount(e.target.value)}
                         className="800px:w-[100px] w-[full] border 800px:mr-3 p-1 rounded"
                       />

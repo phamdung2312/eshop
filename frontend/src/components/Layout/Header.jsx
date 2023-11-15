@@ -41,6 +41,7 @@ const Header = ({ activeHeading }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log("searchData", searchData);
   console.log("searchTerm", searchTerm);
 
   const handleSearchChange = (e) => {
@@ -327,18 +328,18 @@ const Header = ({ activeHeading }) => {
                 />
                 {searchData && (
                   <div className="absolute bg-[#fff] z-10 shadow w-full left-0 p-3">
-                    {searchData.map((i) => {
-                      const d = i.name;
+                    {searchData?.map((i) => {
+                      const d = i?.name;
                       const Product_name = d.replace(/\s+/g, "-");
                       return (
-                        <Link to={`/product/${Product_name}`}>
+                        <Link to={`/product/${i._id}`}>
                           <div className="flex items-center">
                             <img
-                              src={i.image_Url[0].url}
+                              src={`${backend_url}${i.images[0]}`}
                               alt=""
                               className="w-[50px] mr-2"
                             />
-                            <h5>{i.name}</h5>
+                            <h5>{i?.name}</h5>
                           </div>
                         </Link>
                       );

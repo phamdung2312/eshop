@@ -31,7 +31,6 @@ const DashboardHero = () => {
       style: "currency",
       currency: "VND",
     }) + "";
-  console.log("availableBalance", availableBalance);
   const scrollToTarget = () => {
     targetRef.current.scrollIntoView({ behavior: "smooth" });
   };

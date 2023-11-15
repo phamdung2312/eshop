@@ -16,6 +16,7 @@ const OrderDetails = () => {
   const navigate = useNavigate();
 
   const { id } = useParams();
+  console.log("id", id);
 
   useEffect(() => {
     dispatch(getAllOrdersOfShop(seller._id));
@@ -60,6 +61,7 @@ const OrderDetails = () => {
   };
 
   console.log(data?.status);
+  console.log("status", status);
 
   return (
     <div className={`py-4 min-h-screen ${styles.section}`}>
@@ -81,11 +83,14 @@ const OrderDetails = () => {
           Mã đơn hàng: <span>#{data?._id?.slice(0, 8)}</span>
         </h5>
         <h5 className="text-[#00000084]">
-          Ngày đặt hàng: <span>{new Date(data?.createdAt).toLocaleString("vi-VN", {
-            year: "numeric",
-            month: "numeric",
-            day: "numeric",
-          })}</span>
+          Ngày đặt hàng:{" "}
+          <span>
+            {new Date(data?.createdAt).toLocaleString("vi-VN", {
+              year: "numeric",
+              month: "numeric",
+              day: "numeric",
+            })}
+          </span>
         </h5>
       </div>
 
@@ -183,14 +188,16 @@ const OrderDetails = () => {
           </select>
         )}
       {data?.status === "Đang xử lý hoàn trả" ||
-        data?.status === "Hoàn trả thành công" ? (
+      data?.status === "Hoàn trả thành công" ? (
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
           className="w-[200px] mt-2 border h-[35px] rounded-[5px]">
           {["Đang xử lý hoàn trả", "Hoàn trả thành công"]
             .slice(
-              ["Đang xử lý hoàn trả", "Hoàn trả thành công"].indexOf(data?.status)
+              ["Đang xử lý hoàn trả", "Hoàn trả thành công"].indexOf(
+                data?.status
+              )
             )
             .map((option, index) => (
               <option value={option} key={index}>

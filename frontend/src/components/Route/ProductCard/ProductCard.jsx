@@ -60,7 +60,9 @@ const ProductCard = ({ data, isEvent }) => {
         toast.error("Sản phẩm hiện hết hàng!");
       } else {
         if (isNameShop) {
-          toast.error("Vui lòng thanh toán sản phẩm trong giỏ hàng trước khi thêm sản phẩm của cửa hàng khác");
+          toast.error(
+            "Vui lòng thanh toán sản phẩm trong giỏ hàng trước khi thêm sản phẩm của cửa hàng khác"
+          );
         } else {
           const cartData = { ...data, qty: 1 };
           dispatch(addTocart(cartData));

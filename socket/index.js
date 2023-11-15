@@ -18,6 +18,7 @@ app.get("/", (req, res) => {
 });
 
 let users = [];
+console.log("users", users);
 
 const addUser = (userId, socketId) => {
   !users.some((user) => user.userId === userId) &&
