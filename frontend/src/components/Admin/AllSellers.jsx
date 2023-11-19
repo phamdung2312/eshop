@@ -20,6 +20,7 @@ const AllSellers = () => {
   const [open, setOpen] = useState(false);
   const [userId, setUserId] = useState("");
 
+  // hiển thị tất cả user
   useEffect(() => {
     dispatch(getAllSellers());
   }, [dispatch]);

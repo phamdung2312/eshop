@@ -10,7 +10,7 @@ import { TfiGallery } from "react-icons/tfi";
 import styles from "../styles/styles";
 import moment from "moment";
 import "moment/locale/vi";
-const ENDPOINT = "https://socket-ecommerce-tu68.onrender.com/";
+const ENDPOINT = "http://localhost:4000";
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 const UserInbox = () => {
@@ -26,7 +26,9 @@ const UserInbox = () => {
   const [images, setImages] = useState();
   const [activeStatus, setActiveStatus] = useState(false);
   const [open, setOpen] = useState(false);
-  const scrollRef = useRef(null)
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
     socketId.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,

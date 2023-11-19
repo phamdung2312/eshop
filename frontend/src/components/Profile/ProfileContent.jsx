@@ -233,7 +233,8 @@ const AllOrders = () => {
       minWidth: 130,
       flex: 0.7,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Đã giao hàng" || params.getValue(params.id, "status") === "Hoàn trả thành công"
+        return params.getValue(params.id, "status") === "Đã giao hàng" ||
+          params.getValue(params.id, "status") === "Hoàn trả thành công"
           ? "greenColor"
           : "redColor";
       },
@@ -478,7 +479,8 @@ const TrackOrder = () => {
       minWidth: 130,
       flex: 0.7,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Đã giao hàng" || params.getValue(params.id, "status") === "Hoàn trả thành công"
+        return params.getValue(params.id, "status") === "Đã giao hàng" ||
+          params.getValue(params.id, "status") === "Hoàn trả thành công"
           ? "greenColor"
           : "redColor";
       },
@@ -579,7 +581,7 @@ const ChangePassword = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        toast.success(res.data.success);
+        toast.success(res.data.message);
         setOldPassword("");
         setNewPassword("");
         setConfirmPassword("");

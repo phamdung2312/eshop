@@ -40,27 +40,6 @@ const ShopResetForgotPasswordPage = () => {
         toast.error(error.response.data.message);
       });
   };
-
-  //==============================
-
-  // useEffect(() => {
-  //   if (activation_token) {
-  //     const sendRequest = async () => {
-  //       await axios
-  //         .post(`${server}/user/reset-password`, {
-  //           activation_token,
-  //         })
-  //         .then((res) => {
-  //           console.log(res);
-  //         })
-  //         .catch((err) => {
-  //           setError(true);
-  //         });
-  //     };
-  //     sendRequest();
-  //   }
-  // }, []);
-
   return (
     <div
       style={{

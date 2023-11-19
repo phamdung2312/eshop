@@ -16,17 +16,15 @@ const ResetPasswordPage = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  console.log("id", id);
-
   const passwordChangeHandler = async (e) => {
     e.preventDefault();
 
     await axios
-      .put(
-        `${server}/user/reset-password-user`,
-        { id, newPassword, confirmPassword },
-        { withCredentials: true }
-      )
+      .put(`${server}/user/reset-password-user`, {
+        id,
+        newPassword,
+        confirmPassword,
+      })
       .then(() => {
         setConfirmPassword("");
         setNewPassword("");
@@ -40,27 +38,6 @@ const ResetPasswordPage = () => {
         toast.error(error.response.data.message);
       });
   };
-
-  //==============================
-
-  // useEffect(() => {
-  //   if (activation_token) {
-  //     const sendRequest = async () => {
-  //       await axios
-  //         .post(`${server}/user/reset-password`, {
-  //           activation_token,
-  //         })
-  //         .then((res) => {
-  //           console.log(res);
-  //         })
-  //         .catch((err) => {
-  //           setError(true);
-  //         });
-  //     };
-  //     sendRequest();
-  //   }
-  // }, []);
-
   return (
     <div
       style={{

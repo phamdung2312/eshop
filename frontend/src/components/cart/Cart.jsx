@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 const Cart = ({ setOpenCart }) => {
   const { cart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  console.log("cart", cart);
 
   const removeFromCartHandler = (data) => {
     dispatch(removeFromCart(data));
@@ -101,7 +102,7 @@ const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
   const totalPrice = data.discountPrice * value;
 
   const increment = (data) => {
-    if (data.stock < value) {
+    if (data.stock <= value) {
       toast.error("Hết hàng!");
     } else {
       setValue(value + 1);

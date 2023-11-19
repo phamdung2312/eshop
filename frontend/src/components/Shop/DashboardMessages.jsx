@@ -10,7 +10,7 @@ import { TfiGallery } from "react-icons/tfi";
 import socketIO from "socket.io-client";
 import moment from "moment";
 import "moment/locale/vi";
-const ENDPOINT = "https://socket-ecommerce-tu68.onrender.com/";
+const ENDPOINT = "http://localhost:4000";
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 const DashboardMessages = () => {

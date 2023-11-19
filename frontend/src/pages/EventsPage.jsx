@@ -5,6 +5,7 @@ import Header from "../components/Layout/Header";
 import Loader from "../components/Layout/Loader";
 import Footer from "../components/Layout/Footer";
 import { FaSadTear } from "react-icons/fa"; // Import biểu tượng mặt buồn
+import Meta from "../utils/Meta";
 
 const EventsPage = () => {
   const { allEvents, isLoading } = useSelector((state) => state.events);
@@ -14,6 +15,7 @@ const EventsPage = () => {
 
   return (
     <>
+      <Meta title="Sự kiện"></Meta>
       {isLoading ? (
         <Loader />
       ) : (

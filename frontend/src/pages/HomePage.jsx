@@ -7,7 +7,6 @@ import FeaturedProduct from "../components/Route/FeaturedProduct/FeaturedProduct
 import Events from "../components/Events/Events";
 import Sponsored from "../components/Route/Sponsored";
 import Footer from "../components/Layout/Footer";
-import ResultSearch from "../components/Route/ResultSearch/ResultSearch";
 
 const HomePage = () => {
   return (

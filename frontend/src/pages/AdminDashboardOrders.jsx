@@ -15,9 +15,7 @@ const AdminDashboardOrders = () => {
   const [valEndDay, setValEndDay] = useState("");
   const [statistic, setStatistic] = useState(false);
 
-  const { adminOrders, adminOrderLoading } = useSelector(
-    (state) => state.order
-  );
+  const { adminOrders } = useSelector((state) => state.order);
 
   console.log("adminOrders", adminOrders);
   useEffect(() => {

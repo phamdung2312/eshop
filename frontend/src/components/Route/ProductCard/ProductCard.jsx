@@ -31,6 +31,7 @@ const ProductCard = ({ data, isEvent }) => {
     ? ((data.originalPrice - data.discountPrice) / data.originalPrice) * 100
     : 0;
 
+  console.log("data", data);
   useEffect(() => {
     if (wishlist && wishlist.find((i) => i._id === data._id)) {
       setClick(true);

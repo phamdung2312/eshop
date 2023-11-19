@@ -83,7 +83,7 @@ const Checkout = () => {
     await axios.get(`${server}/coupon/get-coupon-value/${name}`).then((res) => {
       const shopId = res.data.couponCode?.shopId;
       const couponCodeValue = res.data.couponCode?.value;
-      console.log("shopId", shopId);
+
       if (res.data.couponCode !== null) {
         const isCouponValid =
           cart && cart.filter((item) => item.shopId === shopId);

@@ -36,7 +36,7 @@ const Payment = () => {
             description: "Thanh toán đơn hàng 4D Market",
             amount: {
               currency_code: "USD",
-              value: orderData?.totalPrice/25000,
+              value: orderData?.totalPrice / 25000,
             },
           },
         ],
@@ -96,6 +96,7 @@ const Payment = () => {
       });
   };
 
+  // chuyển sau đơn vị tiền stripe
   const paymentData = {
     amount: Math.round(orderData?.totalPrice * 100),
   };

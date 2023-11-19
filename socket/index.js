@@ -43,7 +43,7 @@ const createMessage = ({ senderId, receiverId, text, images }) => ({
 });
 
 io.on("connection", (socket) => {
-  // when connect
+  // when user connect
   console.log(`a user is connected`);
 
   // take userId and socketId from user

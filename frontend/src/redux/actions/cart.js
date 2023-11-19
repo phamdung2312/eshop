@@ -1,5 +1,6 @@
 // add to cart
 export const addTocart = (data) => async (dispatch, getState) => {
+  console.log("dataRedux", data);
   dispatch({
     type: "addToCart",
     payload: data,
